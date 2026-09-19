@@ -1,0 +1,61 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="160" y1="0" x2="1040" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#151727"/>
+      <stop offset="0.54" stop-color="#0C0D12"/>
+      <stop offset="1" stop-color="#111321"/>
+    </linearGradient>
+    <linearGradient id="force" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4054F6" stop-opacity="0"/>
+      <stop offset="0.22" stop-color="#6879FF"/>
+      <stop offset="0.5" stop-color="#A8B1FF"/>
+      <stop offset="0.78" stop-color="#6879FF"/>
+      <stop offset="1" stop-color="#4054F6" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 260) rotate(90) scale(310 610)">
+      <stop stop-color="#4054F6" stop-opacity="0.2"/>
+      <stop offset="0.62" stop-color="#4054F6" stop-opacity="0.04"/>
+      <stop offset="1" stop-color="#4054F6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-20%" y="-40%" width="140%" height="180%">
+      <feGaussianBlur stdDeviation="13"/>
+    </filter>
+  </defs>
+
+  <rect x="1" y="1" width="1198" height="518" rx="32" fill="url(#bg)" stroke="#272A3D" stroke-width="2"/>
+  <rect x="1" y="1" width="1198" height="518" rx="32" fill="url(#glow)"/>
+
+  <g opacity="0.44" filter="url(#blur)">
+    <path d="M-74 80C248 80 337 170 600 260C863 350 952 440 1274 440" stroke="#4054F6" stroke-width="18"/>
+    <path d="M-74 440C248 440 337 350 600 260C863 170 952 80 1274 80" stroke="#4054F6" stroke-width="18"/>
+  </g>
+  <path d="M-74 80C248 80 337 170 600 260C863 350 952 440 1274 440" stroke="url(#force)" stroke-width="2"/>
+  <path d="M-74 440C248 440 337 350 600 260C863 170 952 80 1274 80" stroke="url(#force)" stroke-width="2"/>
+
+  <g transform="translate(64 53)">
+    <path d="M0 8C4 8 3 26 10 26C17 26 13 8 20 8C27 8 23 26 31 26C34.2 26 36 22.8 36.8 19.6" stroke="#7181FF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="41" cy="14" r="3.1" fill="#7181FF"/>
+    <text x="57" y="26" fill="#F7F8FC" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="26" font-weight="700" letter-spacing="-0.5">waymode</text>
+  </g>
+  <text x="1136" y="78" fill="#8F94A8" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="17" font-weight="600" text-anchor="end">OPEN SOURCE · MIT</text>
+
+  <text x="600" y="220" fill="#F7F8FC" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="70" font-weight="700" letter-spacing="-3.2" text-anchor="middle">Put your product</text>
+  <text x="600" y="296" fill="#F7F8FC" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="70" font-weight="700" letter-spacing="-3.2" text-anchor="middle">in Waymode.</text>
+  <text x="600" y="346" fill="#AEB2C3" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="24" font-weight="500" letter-spacing="-0.4" text-anchor="middle">Your users ask. Your product does the work.</text>
+
+  <g transform="translate(230 405)" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600">
+    <rect width="210" height="50" rx="25" fill="#151725" stroke="#30344B"/>
+    <circle cx="28" cy="25" r="5" fill="#7181FF"/>
+    <text x="46" y="31" fill="#E8EAF3">Acts directly</text>
+  </g>
+  <g transform="translate(460 405)" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600">
+    <rect width="252" height="50" rx="25" fill="#151725" stroke="#30344B"/>
+    <circle cx="28" cy="25" r="5" fill="#7181FF"/>
+    <text x="46" y="31" fill="#E8EAF3">Brings the interface</text>
+  </g>
+  <g transform="translate(732 405)" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600">
+    <rect width="238" height="50" rx="25" fill="#151725" stroke="#30344B"/>
+    <circle cx="28" cy="25" r="5" fill="#7181FF"/>
+    <text x="46" y="31" fill="#E8EAF3">Guides when needed</text>
+  </g>
+</svg>

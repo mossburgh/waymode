@@ -1,0 +1,87 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: npm-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.status.outputs.version }}
+      publish: ${{ steps.status.outputs.publish }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+      - id: status
+        run: node scripts/release-status.mjs
+  publish:
+    needs: check
+    if: needs.check.outputs.publish == 'true' && vars.NPM_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/secrets
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run verify
+      - name: Check private publication policy
+        env:
+          WAYMODE_PRIVATE_TERMS: ${{ secrets.WAYMODE_PRIVATE_TERMS }}
+        run: npm run publication:check -- --package --require-private-terms
+      - run: npm run package:check -- --keep
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: npm-package-${{ github.sha }}
+          path: "artifacts/package/*.tgz"
+      - name: Publish with trusted identity
+        run: npm publish artifacts/package/mossburgh-waymode-*.tgz --provenance --access public
+  github-release:
+    needs: [check, publish]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+      - name: Read the published version and provenance
+        env:
+          VERSION: ${{ needs.check.outputs.version }}
+        run: npm view "@mossburgh/waymode@$VERSION" version dist.integrity dist.attestations --json
+      - name: Reject a version tag on a different commit
+        env:
+          VERSION: ${{ needs.check.outputs.version }}
+        run: |
+          if git show-ref --verify --quiet "refs/tags/v$VERSION"; then
+            tagged_commit=$(git rev-parse "refs/tags/v$VERSION^{commit}")
+            test "$tagged_commit" = "$GITHUB_SHA"
+          fi
+      - name: Create the version tag and release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.check.outputs.version }}
+        run: gh release create "v$VERSION" --target "$GITHUB_SHA" --title "Waymode v$VERSION" --generate-notes

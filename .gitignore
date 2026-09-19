@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.env*
+!.env.example
+artifacts/
+test-results/
+
+# Local review notes may include private integration evidence.
+.impeccable/
+
+
+# Local agent tooling is restored from skills-lock.json.
+.agents/skills/
+
+# Private integration evidence belongs outside this repository.
+plans/
+private/
+local-review/

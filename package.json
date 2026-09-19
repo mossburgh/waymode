@@ -1,0 +1,104 @@
+{
+  "name": "@mossburgh/waymode",
+  "version": "0.2.0",
+  "description": "Let an app use its own live controls with a pluggable decision model.",
+  "type": "module",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*",
+    "!dist/**/*.fixture.*",
+    "!dist/**/fixtures/**",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/browser/index.d.ts",
+      "import": "./dist/browser/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js"
+    },
+    "./core": {
+      "types": "./dist/core.d.ts",
+      "import": "./dist/core.js"
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepack": "npm run build && npm run publication:check -- --package",
+    "review": "npm run build && node scripts/review.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "verify": "npm run publication:check && npm run lint && npm run typecheck && npm test && npm run build && npm run format:check",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix --max-warnings 0",
+    "prepare": "husky",
+    "evidence:check": "node scripts/check-pr-evidence.mjs",
+    "package:check": "node scripts/check-package.mjs",
+    "skills:check": "node scripts/check-skill.mjs",
+    "publication:check": "node scripts/check-publication.mjs"
+  },
+  "dependencies": {
+    "@types/json-schema": "^7.0.15",
+    "ai": "7.0.105",
+    "dom-accessibility-api": "^0.7.0",
+    "zod": "^4.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=19 <20",
+    "react-dom": ">=19 <20"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitest/eslint-plugin": "1.6.27",
+    "eslint": "10.11.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-sonarjs": "4.2.1",
+    "globals": "17.12.0",
+    "happy-dom": "^20.0.0",
+    "husky": "9.1.7",
+    "lint-staged": "17.5.1",
+    "prettier": "^3.6.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "8.70.0",
+    "vitest": "^5.0.1"
+  },
+  "engines": {
+    "node": "^22.22.1 || >=24"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mossburgh/waymode.git"
+  },
+  "homepage": "https://github.com/mossburgh/waymode#readme",
+  "bugs": {
+    "url": "https://github.com/mossburgh/waymode/issues"
+  }
+}
